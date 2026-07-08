@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Takeda DevX Control Tower — Decision Brief</title>
+<meta name="description" content="A cinematic decision brief for Takeda DevX: own the operating model, adopt the giants, build the GxP control layer, and stop duplicate work." />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='4' width='24' height='24' rx='5' fill='%23E1242A'/%3E%3Cpath d='M9 17h14M16 10v14' stroke='white' stroke-width='2.1' stroke-linecap='round'/%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   TAKEDA DEVX CONTROL TOWER — SINGLE FILE GITHUB PAGES BUILD
+   ============================================================ */
+:root{
+  --bg:#0b0b0d;
+  --bg2:#101014;
+  --bg3:#17171d;
+  --panel:#131318;
+  --panel2:#191920;
+  --ink:#f6f4f1;
+  --muted:#a09fa7;
+  --faint:#63636d;
+  --line:rgba(246,244,241,.09);
+  --line2:rgba(246,244,241,.055);
+  --red:#E1242A;
+  --red2:#8E1418;
+  --red3:rgba(225,36,42,.14);
+  --redGlow:rgba(225,36,42,.48);
+  --teal:#3DA5A0;
+  --teal2:rgba(61,165,160,.16);
+  --amber:#F4B95A;
+  --green:#67C17A;
+  --grey:#777781;
+  --maxw:1160px;
+  --gutter:clamp(20px,5vw,64px);
+  --rail:72px;
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --ease:cubic-bezier(.22,.9,.24,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:var(--bg);color:var(--ink)}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;text-rendering:geometricPrecision}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background:
+  radial-gradient(circle at 15% 12%,rgba(225,36,42,.12),transparent 22rem),
+  radial-gradient(circle at 85% 8%,rgba(61,165,160,.10),transparent 22rem),
+  radial-gradient(circle at 50% 60%,rgba(225,36,42,.05),transparent 38rem),
+  linear-gradient(180deg,#0c0c0e,#08080a 70%)}
+.grid{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.74;background-image:
+  linear-gradient(rgba(246,244,241,.028) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(246,244,241,.028) 1px,transparent 1px);
+  background-size:48px 48px;mask-image:radial-gradient(ellipse 92% 78% at 50% 35%,#000 48%,transparent 100%)}
+.noise{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:.08;mix-blend-mode:screen;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--red);color:#fff}
+button{font:inherit;color:inherit;background:none;border:0}
+
+/* fixed chrome */
+.chrome{position:fixed;z-index:60;pointer-events:none}
+.brand{top:22px;left:24px;display:flex;align-items:center;gap:11px;font:700 11px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.brand .mark{width:14px;height:14px;border-radius:4px;background:var(--red);box-shadow:0 0 18px var(--redGlow);position:relative}
+.brand .mark::after{content:"";position:absolute;inset:3px;border:1px solid rgba(255,255,255,.9);border-radius:2px}
+.brand b{color:var(--ink)}
+.scroll-read{bottom:22px;left:24px;font:500 11px/1 var(--mono);letter-spacing:.17em;text-transform:uppercase;color:var(--faint)}
+.scroll-read b{color:var(--red);font-weight:700}
+.progress-rail{position:fixed;right:26px;top:50%;transform:translateY(-50%);z-index:60;display:flex;flex-direction:column;gap:13px}
+.progress-rail a{width:10px;height:10px;border-radius:50%;border:1px solid var(--faint);display:block;position:relative;transition:.25s var(--ease);background:rgba(12,12,14,.65)}
+.progress-rail a.active{border-color:var(--red);background:var(--red);box-shadow:0 0 14px var(--redGlow)}
+.progress-rail a span{position:absolute;right:22px;top:50%;transform:translateY(-50%);white-space:nowrap;opacity:0;font:500 10px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);transition:.25s var(--ease);pointer-events:none}
+.progress-rail a:hover span{opacity:1}
+@media(max-width:900px){.progress-rail{display:none}.brand{left:16px}.scroll-read{left:16px}}
+
+/* thread */
+#decision-thread{position:absolute;top:0;left:0;width:100%;z-index:3;pointer-events:none;overflow:visible}
+#decision-thread path{fill:none;stroke-width:2;stroke-linecap:round}
+#thread-ghost{stroke:rgba(225,36,42,.10)}
+#thread-live{stroke:var(--red);filter:drop-shadow(0 0 7px rgba(225,36,42,.62))}
+#thread-tip circle:first-child{fill:none;stroke:var(--red);stroke-width:1.5;opacity:.8;transform-origin:center;animation:pulse 2s var(--ease) infinite}
+#thread-tip circle:last-child{fill:var(--red)}
+@keyframes pulse{0%{transform:scale(.45);opacity:.9}75%,100%{transform:scale(2.6);opacity:0}}
+
+section,header,footer{position:relative;z-index:5}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter)}
+.rail-pad .wrap{padding-left:calc(var(--rail) + var(--gutter))}
+@media(max-width:820px){.rail-pad .wrap{padding-left:calc(24px + var(--gutter))}}
+.kicker,.eyebrow{font:600 11px/1.3 var(--mono);letter-spacing:.24em;text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:12px;margin-bottom:22px}
+.eyebrow::after{content:"";width:54px;height:1px;background:var(--red);opacity:.55}
+h1,h2,h3{font-weight:900;letter-spacing:-.045em;line-height:1.02}
+h1{font-size:clamp(3rem,8.8vw,7.8rem)}
+h2{font-size:clamp(2.05rem,5vw,4rem);max-width:980px}
+h3{font-size:clamp(1.25rem,2vw,1.65rem);letter-spacing:-.03em}
+.lede{font-size:clamp(1rem,1.7vw,1.18rem);color:var(--muted);max-width:68ch;margin-top:20px}
+.lede b,.lede strong{color:var(--ink);font-weight:700}
+.src{font:500 10.5px/1.2 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--faint);border-bottom:1px dotted var(--faint);padding-bottom:2px;display:inline-block;margin:5px 8px 0 0}
+.src:hover{color:var(--red);border-color:var(--red)}
+.chip{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--line);border-radius:999px;padding:8px 13px;font:700 10.5px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);background:rgba(255,255,255,.025)}
+.chip.red{color:var(--red);border-color:rgba(225,36,42,.42);background:rgba(225,36,42,.08)}
+.chip.teal{color:var(--teal);border-color:rgba(61,165,160,.42);background:rgba(61,165,160,.08)}
+.chip.white{color:var(--ink)}
+
+/* reveal */
+html.js .rv{opacity:0;transform:translateY(26px);transition:opacity .75s var(--ease),transform .75s var(--ease)}
+html.js .rv.in{opacity:1;transform:none}
+html.js .rv[data-d="1"]{transition-delay:.08s}
+html.js .rv[data-d="2"]{transition-delay:.18s}
+html.js .rv[data-d="3"]{transition-delay:.30s}
+html.js .rv[data-d="4"]{transition-delay:.42s}
+
+/* shared cards */
+.card{border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.042),rgba(255,255,255,.02));border-radius:18px;box-shadow:0 18px 40px rgba(0,0,0,.22);position:relative;overflow:hidden}
+.card::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(135deg,rgba(255,255,255,.08),transparent 30%,transparent 70%,rgba(255,255,255,.03));opacity:.8}
+.card .inner{position:relative;padding:24px}
+.stat{font-weight:900;font-size:clamp(2rem,5vw,4rem);letter-spacing:-.06em;line-height:1;color:var(--ink)}
+.stat.red{color:var(--red)}.stat.teal{color:var(--teal)}
+.label{font:600 10.5px/1.35 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-top:10px}
+
+/* pinned scaffolding */
+.pin-track{position:relative;height:320vh}
+.pin-stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:flex;align-items:center}
+
+/* 01 HERO */
+.hero{min-height:100vh;min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 var(--gutter);overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+.hero-orbit{position:absolute;left:50%;top:50%;width:min(82vw,820px);height:min(82vw,820px);transform:translate(-50%,-50%);border:1px solid rgba(225,36,42,.11);border-radius:50%;opacity:.75;animation:slowSpin 42s linear infinite}
+.hero-orbit::before,.hero-orbit::after{content:"";position:absolute;inset:12%;border:1px dashed rgba(246,244,241,.08);border-radius:50%}
+.hero-orbit::after{inset:28%;border-color:rgba(61,165,160,.13);animation:slowSpin 18s linear reverse infinite}
+@keyframes slowSpin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.node{position:absolute;width:10px;height:10px;border-radius:50%;background:var(--red);box-shadow:0 0 15px var(--redGlow)}
+.node.n1{left:8%;top:42%}.node.n2{right:15%;top:28%;background:var(--teal);box-shadow:0 0 15px rgba(61,165,160,.45)}.node.n3{left:28%;bottom:12%}.node.n4{right:18%;bottom:22%}.node.n5{left:50%;top:4%;background:var(--teal)}
+.hero-copy{position:relative;z-index:2;max-width:1180px}
+.hero .kicker{justify-content:center;color:var(--muted);animation:fadeUp .8s var(--ease) .35s both}.hero .kicker em{color:var(--red);font-style:normal}
+.hero h1{animation:fadeUp .9s var(--ease) .55s both}.hero h1 .red{color:var(--red);text-shadow:0 0 28px rgba(225,36,42,.28)}
+.hero .thin{display:block;font-size:.28em;font-weight:500;letter-spacing:-.015em;color:var(--muted);line-height:1.35;margin-top:26px}
+.hero .one{margin:34px auto 0;max-width:760px;color:var(--muted);font-size:clamp(1.05rem,1.7vw,1.25rem);animation:fadeUp .9s var(--ease) .85s both}.hero .one b{color:var(--ink)}
+.hero .scroll-cue{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);font:600 10px/1 var(--mono);letter-spacing:.28em;text-transform:uppercase;color:var(--faint);animation:fadeUp 1s var(--ease) 1.15s both}.hero .scroll-cue::after{content:"";width:1px;height:34px;background:linear-gradient(var(--faint),transparent);display:block;margin:12px auto 0;animation:cue 1.7s var(--ease) infinite}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes cue{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* 02 VACUUM */
+#s-vacuum{padding:18vh 0 15vh}.vacuum-layout{display:grid;grid-template-columns:.94fr 1.06fr;gap:54px;align-items:center}@media(max-width:960px){.vacuum-layout{grid-template-columns:1fr}}
+#dup-canvas{width:100%;height:520px;border-radius:22px;border:1px solid var(--line);background:radial-gradient(circle at 50% 48%,#17171d,#0d0d10 70%);display:block;box-shadow:inset 0 0 0 1px rgba(255,255,255,.02),0 24px 80px rgba(0,0,0,.28)}
+.vacuum-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-top:36px}@media(max-width:760px){.vacuum-stats{grid-template-columns:repeat(2,1fr)}}
+.vacuum-stats>div{background:var(--panel);padding:20px 18px}
+
+/* 03 EVIDENCE */
+#s-evidence .pin-track{height:340vh}.evidence-layout{max-width:var(--maxw);margin:auto;padding:0 var(--gutter);padding-left:calc(var(--rail) + var(--gutter));display:grid;grid-template-columns:.9fr 1.1fr;gap:54px;align-items:center;width:100%}@media(max-width:900px){.evidence-layout{grid-template-columns:1fr;padding-left:calc(24px + var(--gutter));gap:28px}}
+.big95{font-size:clamp(5.2rem,14vw,11rem);font-weight:900;letter-spacing:-.07em;line-height:.88;color:var(--red);font-variant-numeric:tabular-nums}.big95 sup{font-size:.25em;color:var(--muted);letter-spacing:-.02em}.evidence-caption{min-height:150px;margin-top:20px;position:relative}.evidence-caption p{position:absolute;inset:0;color:var(--muted);opacity:0;transform:translateY(10px);transition:.55s var(--ease);max-width:48ch}.evidence-caption p.show{opacity:1;transform:none}.evidence-caption b{color:var(--ink)}
+.pilot-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:8px;width:min(52vh,100%);margin-left:auto;aspect-ratio:1}.pilot-grid i{border-radius:5px;background:#23232a;border:1px solid rgba(246,244,241,.06);opacity:0;transform:scale(.85);transition:opacity .45s var(--ease),transform .45s var(--ease),background .45s var(--ease),box-shadow .45s var(--ease)}.pilot-grid i.on{opacity:1;transform:scale(1)}.pilot-grid i.fail{opacity:.25;background:#2a2a30}.pilot-grid i.win{opacity:1;background:var(--red);border-color:var(--red);box-shadow:0 0 16px var(--redGlow)}
+
+/* 04 PLATFORM VELOCITY */
+#s-platform{padding:18vh 0}.velocity{margin-top:44px;display:grid;grid-template-columns:1.1fr .9fr;gap:26px}@media(max-width:900px){.velocity{grid-template-columns:1fr}}
+.release-board{padding:24px}.release-lane{margin:20px 0}.release-lane .head{display:flex;justify-content:space-between;font:700 10px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}.lane-track{height:12px;border-radius:99px;background:rgba(255,255,255,.06);overflow:hidden;border:1px solid var(--line2)}.lane-fill{height:100%;width:0;background:linear-gradient(90deg,var(--teal),#7bd7d2);border-radius:99px;transition:width 1.2s var(--ease)}.release-board.live .lane-fill{width:100%}.release-lane:nth-child(3) .lane-fill{transition-delay:.16s}.release-lane:nth-child(4) .lane-fill{transition-delay:.32s}.release-lane:nth-child(5) .lane-fill{transition-delay:.48s}
+.vendor-clock{padding:30px;display:flex;flex-direction:column;justify-content:center;min-height:300px}.vendor-clock .month{font-size:clamp(3.4rem,8vw,6rem);font-weight:900;letter-spacing:-.07em;line-height:1;color:var(--red)}.vendor-clock .month small{font-size:.25em;color:var(--muted);font-weight:600}.stamp{display:inline-flex;margin-top:20px;align-self:flex-start;border:2px solid var(--red);border-radius:8px;color:var(--red);font:800 11px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;padding:9px 12px;transform:rotate(-4deg);background:rgba(225,36,42,.08);opacity:0;transition:.5s var(--ease)}.vendor-clock.live .stamp{opacity:1;transform:rotate(-4deg) scale(1.02)}
+.factline{margin-top:24px;color:var(--muted);max-width:78ch}.factline b{color:var(--ink)}
+
+/* 05 PORTAL */
+#s-portal .pin-track{height:340vh}.portal-stage-inner{width:100%;max-width:var(--maxw);margin:auto;padding:0 var(--gutter);padding-left:calc(var(--rail) + var(--gutter));display:grid;grid-template-columns:.92fr 1.08fr;gap:52px;align-items:center}@media(max-width:960px){.portal-stage-inner{grid-template-columns:1fr;padding-left:calc(24px + var(--gutter));gap:26px}}
+.portal-viz{position:relative;min-height:520px}.mega-portal,.control-plane{position:absolute;inset:0;transition:.7s var(--ease)}.mega-portal{opacity:1}.control-plane{opacity:0;transform:translateY(22px)}.portal-viz.mode-control .mega-portal{opacity:0;transform:scale(.94);filter:blur(4px)}.portal-viz.mode-control .control-plane{opacity:1;transform:none}
+.center-portal{position:absolute;left:50%;top:50%;width:210px;height:210px;border-radius:28px;transform:translate(-50%,-50%);background:linear-gradient(145deg,rgba(225,36,42,.25),rgba(225,36,42,.06));border:1px solid rgba(225,36,42,.45);box-shadow:0 0 55px rgba(225,36,42,.22);display:grid;place-items:center;text-align:center;font:800 13px/1.35 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink)}
+.work-card{position:absolute;width:138px;border:1px solid var(--line);border-radius:14px;background:rgba(19,19,24,.94);padding:13px 12px;font:700 10px/1.25 var(--mono);letter-spacing:.11em;text-transform:uppercase;color:var(--muted);box-shadow:0 16px 38px rgba(0,0,0,.25);transition:.7s var(--ease)}.work-card b{color:var(--ink);display:block;margin-bottom:6px}.w1{left:1%;top:18%}.w2{right:2%;top:14%}.w3{left:4%;bottom:15%}.w4{right:5%;bottom:17%}.w5{left:38%;top:1%}.w6{left:38%;bottom:1%}.portal-viz.mode-control .w1{left:2%;top:14%}.portal-viz.mode-control .w2{right:2%;top:14%}.portal-viz.mode-control .w3{left:2%;bottom:12%}.portal-viz.mode-control .w4{right:2%;bottom:12%}.portal-viz.mode-control .w5{left:39%;top:2%}.portal-viz.mode-control .w6{left:39%;bottom:2%}
+.plane{position:absolute;left:50%;top:50%;width:min(500px,92%);height:150px;transform:translate(-50%,-50%);border-radius:22px;background:linear-gradient(90deg,rgba(225,36,42,.22),rgba(61,165,160,.13));border:1px solid rgba(225,36,42,.38);box-shadow:0 0 60px rgba(225,36,42,.18);display:flex;align-items:center;justify-content:center;text-align:center;padding:20px}.plane h3{font-size:1.25rem;letter-spacing:-.02em}.plane p{font:600 10px/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:10px}.control-tags{position:absolute;left:50%;bottom:32px;transform:translateX(-50%);display:flex;gap:8px;flex-wrap:wrap;justify-content:center;width:90%}.control-tags span{border:1px solid var(--line);border-radius:99px;padding:7px 10px;font:700 9.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:rgba(255,255,255,.04)}
+.portal-copy p{color:var(--muted);max-width:55ch;margin-top:18px}.portal-copy p b{color:var(--ink)}
+
+/* 06 MONOREPO */
+#s-monorepo{padding:18vh 0}.repo-highway{margin-top:44px;display:grid;grid-template-columns:1fr 1fr;gap:22px}@media(max-width:900px){.repo-highway{grid-template-columns:1fr}}
+.highway{padding:26px;min-height:350px}.highway .h-title{display:flex;justify-content:space-between;gap:10px;font:800 10.5px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:24px}.highway .h-title b{color:var(--ink)}.road{height:42px;background:linear-gradient(90deg,rgba(255,255,255,.08),rgba(255,255,255,.03));border-radius:999px;border:1px solid var(--line);margin:18px 0;position:relative;overflow:hidden}.road::after{content:"";position:absolute;left:0;top:50%;width:100%;height:1px;background:repeating-linear-gradient(90deg,rgba(255,255,255,.28) 0 18px,transparent 18px 34px)}.car{position:absolute;top:9px;width:24px;height:24px;border-radius:7px;background:var(--teal);box-shadow:0 0 12px rgba(61,165,160,.45);animation:drive 5.5s linear infinite}.mono .car{background:var(--red);box-shadow:0 0 12px rgba(225,36,42,.45);animation-duration:9s}.car:nth-child(2){animation-delay:-1.2s}.car:nth-child(3){animation-delay:-2.8s}.car:nth-child(4){animation-delay:-4s}@keyframes drive{from{left:-30px}to{left:105%}}
+.gate{position:absolute;right:22%;top:4px;width:12px;height:32px;border-radius:4px;background:rgba(246,244,241,.25);box-shadow:0 0 18px rgba(246,244,241,.12)}.mono .gate{right:45%;background:rgba(225,36,42,.55);box-shadow:0 0 20px rgba(225,36,42,.38)}.repo-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-top:34px}@media(max-width:820px){.repo-facts{grid-template-columns:1fr}}.repo-facts>div{background:var(--panel);padding:22px}.repo-facts h4{font-size:1.1rem;margin-bottom:8px}.repo-facts p{color:var(--muted);font-size:.92rem}.repo-facts b{color:var(--ink)}
+
+/* 07 CAPABILITY */
+#s-capability .pin-track{height:320vh}.cap-stage{width:100%;max-width:var(--maxw);margin:auto;padding:0 var(--gutter);padding-left:calc(var(--rail) + var(--gutter));display:grid;grid-template-columns:.85fr 1.15fr;gap:48px;align-items:center}@media(max-width:960px){.cap-stage{grid-template-columns:1fr;padding-left:calc(24px + var(--gutter));gap:28px}}
+.future-stack{position:relative;min-height:500px}.future{position:absolute;inset:0;border:1px solid var(--line);border-radius:24px;background:radial-gradient(circle at 50% 30%,rgba(225,36,42,.10),rgba(255,255,255,.02) 54%,rgba(255,255,255,.01));overflow:hidden;padding:32px;opacity:0;transform:translateX(24px) scale(.96);transition:.65s var(--ease)}.future.show{opacity:1;transform:none}.future .tag{font:800 10px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--red);margin-bottom:16px}.future h3{font-size:clamp(1.8rem,3vw,2.6rem);margin-bottom:14px}.future p{color:var(--muted);max-width:44ch}.future .risk{position:absolute;right:24px;bottom:24px;border:1px solid rgba(225,36,42,.42);border-radius:10px;padding:10px 12px;font:800 10px/1 var(--mono);letter-spacing:.13em;text-transform:uppercase;color:var(--red);background:rgba(225,36,42,.08)}.future.good{background:radial-gradient(circle at 50% 30%,rgba(61,165,160,.12),rgba(225,36,42,.06) 50%,rgba(255,255,255,.02))}.future.good .tag{color:var(--teal)}.future.good .risk{color:var(--teal);border-color:rgba(61,165,160,.42);background:rgba(61,165,160,.08)}
+.future-nodes{position:absolute;inset:0;pointer-events:none}.future-nodes i{position:absolute;width:12px;height:12px;border-radius:50%;background:var(--red);box-shadow:0 0 14px rgba(225,36,42,.55)}.future-nodes i:nth-child(1){left:18%;top:28%}.future-nodes i:nth-child(2){right:20%;top:36%;background:var(--teal)}.future-nodes i:nth-child(3){left:46%;bottom:24%}.future-nodes i:nth-child(4){right:33%;bottom:35%}
+
+/* 08 OPERATING MODEL */
+#s-model{padding:18vh 0}.matrix{margin-top:46px;display:grid;grid-template-columns:repeat(2,1fr);gap:18px;position:relative}@media(max-width:900px){.matrix{grid-template-columns:1fr}}.model-card{min-height:270px;padding:26px;transition:.35s var(--ease)}.model-card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.16)}.model-card .m-tag{font:900 12px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px}.adopt .m-tag{color:var(--teal)}.configure .m-tag{color:var(--ink)}.build .m-tag{color:var(--red)}.stop .m-tag{color:var(--faint)}.model-card ul{list-style:none;margin-top:18px;display:grid;gap:9px}.model-card li{color:var(--muted);font-size:.94rem;padding-left:18px;position:relative}.model-card li::before{content:"";position:absolute;left:0;top:.7em;width:8px;height:2px;background:currentColor;border-radius:4px;opacity:.6}.model-card .why{margin-top:18px;padding-top:16px;border-top:1px solid var(--line2);color:var(--faint);font-size:.88rem}.model-card .why b{color:var(--ink)}.idea-card{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:180px;height:96px;border-radius:18px;border:1px solid rgba(225,36,42,.42);background:rgba(12,12,14,.9);box-shadow:0 0 40px rgba(225,36,42,.22);display:grid;place-items:center;text-align:center;font:800 10px/1.35 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink)}@media(max-width:900px){.idea-card{position:relative;left:auto;top:auto;transform:none;margin:20px auto}}
+
+/* 09 GATES */
+#s-gates{padding:18vh 0}.gates{margin-top:48px;position:relative}.gates::before{content:"";position:absolute;left:26px;top:22px;bottom:22px;width:2px;background:rgba(225,36,42,.18)}.gate-row{display:grid;grid-template-columns:62px 1fr;gap:20px;align-items:stretch;margin-bottom:18px}.gate-num{position:relative;z-index:2;width:54px;height:54px;border-radius:16px;border:1px solid rgba(225,36,42,.45);background:rgba(225,36,42,.08);display:grid;place-items:center;color:var(--red);font:900 13px/1 var(--mono);box-shadow:0 0 20px rgba(225,36,42,.16)}.gate-card{padding:22px 24px}.gate-card header{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;margin-bottom:10px}.gate-card h3{font-size:1.3rem}.gate-card .exit{font:700 10px/1.3 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--teal);border:1px solid rgba(61,165,160,.35);border-radius:999px;padding:8px 10px;white-space:nowrap}.gate-card p{color:var(--muted);max-width:80ch}.signals{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}@media(max-width:760px){.signals{grid-template-columns:1fr}.gate-card header{display:block}.gate-card .exit{display:inline-flex;margin-top:12px}}.signal{border:1px solid var(--line);border-radius:14px;padding:14px;background:rgba(255,255,255,.025)}.signal b{display:block;margin-bottom:6px}.signal.green b{color:var(--green)}.signal.amber b{color:var(--amber)}.signal.red b{color:var(--red)}.signal span{color:var(--muted);font-size:.86rem}
+
+/* 10 CLOSE */
+#s-close{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:15vh var(--gutter)}.close-inner{max-width:1000px}.crest{width:88px;margin:0 auto 34px;opacity:.5}.crest path{fill:none;stroke:var(--red);stroke-width:1.4;stroke-linecap:round}.close-lines{font-weight:900;font-size:clamp(1.9rem,5vw,4.2rem);line-height:1.12;letter-spacing:-.045em}.close-lines span{display:block;margin-top:12px;color:var(--muted)}.close-lines .teal{color:var(--teal)}.close-lines .red{color:var(--red)}.close-lines .white{color:var(--ink)}.close-decision{margin:48px auto 0;display:inline-flex;border:1px solid rgba(225,36,42,.45);border-radius:999px;padding:12px 18px;font:800 11px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--red);background:rgba(225,36,42,.08)}
+
+footer{border-top:1px solid var(--line);padding:48px var(--gutter) 70px;background:rgba(0,0,0,.22)}footer .foot-grid{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:42px}@media(max-width:760px){footer .foot-grid{grid-template-columns:1fr}}footer h4{font:800 10.5px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-bottom:16px}footer ul{list-style:none;display:grid;gap:9px}footer a{color:var(--muted);font-size:.9rem}footer a:hover{color:var(--red)}footer .fine{max-width:var(--maxw);margin:40px auto 0;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font:600 10px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.rv{opacity:1!important;transform:none!important}}
+</style>
+</head>
+<body>
+<div class="grid" aria-hidden="true"></div><div class="noise" aria-hidden="true"></div>
+<svg id="decision-thread" aria-hidden="true"><path id="thread-ghost" d=""></path><path id="thread-live" d=""></path><g id="thread-tip" transform="translate(-100,-100)"><circle r="7"></circle><circle r="4"></circle></g></svg>
+<div class="chrome brand"><span class="mark"></span><span><b>Takeda DevX</b> · Control Tower</span></div>
+<div class="chrome scroll-read"><b id="pct">000</b> / SCROLL</div>
+<nav class="progress-rail" aria-label="Sections"></nav>
+
+<header class="hero" id="s-open" data-thread="center" data-nav="Open">
+  <div class="hero-bg" aria-hidden="true"><div class="hero-orbit"><span class="node n1"></span><span class="node n2"></span><span class="node n3"></span><span class="node n4"></span><span class="node n5"></span></div></div>
+  <div class="hero-copy">
+    <p class="kicker">Takeda DevX · <em>Decision Brief</em> · July 2026</p>
+    <h1>One DevX brain.<br><span class="red">Not 100 hands.</span><span class="thin">A leadership brief on what Takeda should adopt, configure, build, and stop.</span></h1>
+    <p class="one">The question is not whether we use AI for DevX. The question is whether <b>Takeda owns the operating model.</b></p>
+  </div>
+  <div class="scroll-cue">Enter decision room</div>
+</header>
+
+<section id="s-vacuum" class="rail-pad" data-thread="rail" data-nav="Vacuum">
+  <div class="wrap vacuum-layout">
+    <div>
+      <p class="eyebrow rv">02 / The real problem</p>
+      <h2 class="rv" data-d="1">This is not a tooling problem.<br>It is an ownership problem.</h2>
+      <p class="lede rv" data-d="2">Two major initiatives, multiple micro-teams, and a 100-person vendor proposal are circling the same DevX space: coding agents, sprint support, BA workflows, validation artifacts, and GxP / non-GxP delivery. That pattern is not proof that we need a large vendor program. It is proof that we need <b>one internal DevX operating model.</b></p>
+      <div class="vacuum-stats rv" data-d="3">
+        <div><div class="stat red">100</div><div class="label">Proposed vendor-scale team</div></div>
+        <div><div class="stat">n+</div><div class="label">Internal teams solving similar problems</div></div>
+        <div><div class="stat red">0</div><div class="label">Enterprise reuse gate</div></div>
+        <div><div class="stat teal">1</div><div class="label">Needed DevX operating model</div></div>
+      </div>
+    </div>
+    <canvas id="dup-canvas" class="rv" data-d="2" aria-label="Duplication map of DevX initiatives"></canvas>
+  </div>
+</section>
+
+<section id="s-evidence" data-thread="rail" data-nav="Evidence">
+  <div class="pin-track" id="track-evidence"><div class="pin-stage"><div class="evidence-layout">
+    <div>
+      <p class="eyebrow">03 / Evidence shock</p>
+      <div class="big95"><span id="n95">95</span><sup>%</sup></div>
+      <div class="evidence-caption">
+        <p id="ev-a" class="show">of enterprise GenAI pilots show <b>no measurable P&amp;L impact</b>, despite $30–40B of investment. The problem is rarely model output alone.</p>
+        <p id="ev-b">The common failure pattern is <b>workflow integration, governance, measurement, and adoption</b> — exactly the problem a 100-person custom build will not magically solve.</p>
+        <p id="ev-c">The 5% pattern is simple: <b>adopt the commodity layer, own the workflow/control layer, and measure before scaling.</b></p>
+      </div>
+      <a class="src" href="https://mlq.ai/media/quarterly_decks/v0.1_State_of_AI_in_Business_2025_Report.pdf" target="_blank" rel="noopener">MIT NANDA · GenAI Divide</a>
+      <a class="src" href="https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027" target="_blank" rel="noopener">Gartner · Agentic AI risk</a>
+    </div>
+    <div class="pilot-grid" id="pilot-grid" role="img" aria-label="100 AI pilots, 95 fade out, 5 remain"></div>
+  </div></div></div>
+</section>
+
+<section id="s-platform" class="rail-pad" data-thread="rail" data-nav="Giants">
+  <div class="wrap">
+    <p class="eyebrow rv">04 / Platform reality</p>
+    <h2 class="rv" data-d="1">We should not outbuild GitHub, Atlassian, Microsoft, or Anthropic.<br>We should orchestrate them.</h2>
+    <p class="lede rv" data-d="2">The platform giants are already shipping coding agents, issue-to-PR workflows, code review, sprint intelligence, metrics, and enterprise controls. Takeda’s differentiated work is not another generic coding platform. It is the <b>regulated pharma layer</b>: traceability, validation evidence, auditability, policy-aware orchestration, and safe use inside GxP boundaries.</p>
+    <div class="velocity rv" data-d="3">
+      <div class="card release-board" id="release-board">
+        <div class="release-lane"><div class="head"><span>GitHub</span><span>Copilot metrics · coding agent</span></div><div class="lane-track"><div class="lane-fill"></div></div></div>
+        <div class="release-lane"><div class="head"><span>Atlassian</span><span>Rovo · Jira · Confluence · MCP</span></div><div class="lane-track"><div class="lane-fill"></div></div></div>
+        <div class="release-lane"><div class="head"><span>LLM platforms</span><span>Reasoning · agents · context</span></div><div class="lane-track"><div class="lane-fill"></div></div></div>
+        <div class="release-lane"><div class="head"><span>Enterprise SaaS</span><span>Controls · telemetry · integrations</span></div><div class="lane-track"><div class="lane-fill"></div></div></div>
+      </div>
+      <div class="card vendor-clock" id="vendor-clock">
+        <div class="label">Custom vendor build</div>
+        <div class="month">M<span id="month-count">0</span><small> / 18</small></div>
+        <p class="factline">A 12–18 month build is not racing a requirement document. It is racing the release cadence of the platform giants.</p>
+        <span class="stamp">Feature gap at delivery</span>
+      </div>
+    </div>
+    <p class="factline rv" data-d="4"><b>Leadership translation:</b> let the giants build the generic brain. Let Takeda build the regulated pharma brain.</p>
+    <a class="src" href="https://github.blog/changelog/2026-02-27-copilot-metrics-is-now-generally-available/" target="_blank" rel="noopener">GitHub · Copilot metrics GA</a>
+    <a class="src" href="https://github.blog/ai-and-ml/github-copilot/assigning-and-completing-issues-with-coding-agent-in-github-copilot/" target="_blank" rel="noopener">GitHub · coding agent</a>
+    <a class="src" href="https://www.atlassian.com/blog/announcements/atlassian-rovo-mcp-ga" target="_blank" rel="noopener">Atlassian · Rovo MCP GA</a>
+  </div>
+</section>
+
+<section id="s-portal" data-thread="rail" data-nav="Portal">
+  <div class="pin-track" id="track-portal"><div class="pin-stage"><div class="portal-stage-inner">
+    <div class="portal-copy">
+      <p class="eyebrow">05 / Portal reality</p>
+      <h2>One portal for every agent sounds clean.<br>It is not how developers work.</h2>
+      <p id="portal-copy-a"><b>Bad pattern:</b> pull coding, sprint, BA, PR review, requirements, testing, and validation into one mega-portal. It becomes another place people must visit instead of where work actually happens.</p>
+      <p id="portal-copy-b"><b>Right pattern:</b> agents stay where the work happens. The portal becomes the control plane: discovery, access, guardrails, metrics, routing, approvals, and GxP status.</p>
+      <div style="margin-top:26px"><span class="chip red">Portal = control plane</span> <span class="chip white">Not universal workspace</span></div>
+    </div>
+    <div class="portal-viz" id="portal-viz">
+      <div class="mega-portal" aria-hidden="true">
+        <div class="center-portal">Mega portal<br>for everything</div>
+        <div class="work-card w1"><b>Code</b>IDE / GitHub</div><div class="work-card w2"><b>Sprint</b>Jira / Rovo</div><div class="work-card w3"><b>BA</b>Confluence</div><div class="work-card w4"><b>GxP</b>Evidence</div><div class="work-card w5"><b>Review</b>Pull requests</div><div class="work-card w6"><b>Release</b>Audit trail</div>
+      </div>
+      <div class="control-plane" aria-hidden="true">
+        <div class="plane"><div><h3>Takeda DevX Control Plane</h3><p>Govern · measure · approve · route · reuse</p></div></div>
+        <div class="work-card w1"><b>Developers</b>IDE / GitHub / PRs</div><div class="work-card w2"><b>Product teams</b>Jira / Rovo</div><div class="work-card w3"><b>BAs</b>Confluence</div><div class="work-card w4"><b>Quality</b>GxP evidence</div><div class="work-card w5"><b>Security</b>Access / policy</div><div class="work-card w6"><b>Leadership</b>Metrics / registry</div>
+        <div class="control-tags"><span>Access</span><span>Metrics</span><span>Guardrails</span><span>GxP status</span><span>Reuse registry</span><span>Approval route</span></div>
+      </div>
+    </div>
+  </div></div></div>
+</section>
+
+<section id="s-monorepo" class="rail-pad" data-thread="rail" data-nav="Monorepo">
+  <div class="wrap">
+    <p class="eyebrow rv">06 / Monorepo decision</p>
+    <h2 class="rv" data-d="1">Monorepo is not wrong.<br>Monorepo as a shortcut is wrong.</h2>
+    <p class="lede rv" data-d="2">A monorepo can work when an enterprise also funds the build system, dependency graph, CI scale, access controls, caching, ownership model, and permanent platform team around it. For Takeda, the question is simpler: <b>what recurring, high-value, cross-repo change happens often enough to justify the migration tax?</b></p>
+    <div class="repo-highway rv" data-d="3">
+      <div class="card highway poly"><div class="h-title"><b>Polyrepo today</b><span>clear gates</span></div><div class="road"><span class="car"></span><span class="car"></span><span class="car"></span><span class="gate"></span></div><div class="road"><span class="car"></span><span class="car"></span><span class="gate"></span></div><div class="road"><span class="car"></span><span class="gate"></span></div></div>
+      <div class="card highway mono"><div class="h-title"><b>Monorepo proposed</b><span>shared bottleneck</span></div><div class="road"><span class="car"></span><span class="car"></span><span class="car"></span><span class="car"></span><span class="gate"></span></div><div class="road"><span class="car"></span><span class="car"></span><span class="car"></span><span class="gate"></span></div><div class="road"><span class="car"></span><span class="car"></span><span class="gate"></span></div></div>
+    </div>
+    <div class="repo-facts rv" data-d="4">
+      <div><h4>PR drag</h4><p>The brief cites research showing <b>19h median PR cycle time</b> in monorepos versus <b>2h</b> in polyrepos.</p></div>
+      <div><h4>Platform tax</h4><p>Bazel-class migration is a platform project, not a config change. It needs a dedicated build-platform muscle.</p></div>
+      <div><h4>GxP boundaries</h4><p>Regulated systems need clear ownership, release boundaries, validation scope, audit trail, and change control.</p></div>
+    </div>
+    <p class="factline rv" data-d="4"><span class="chip red">Verdict → Skip unless proven</span> &nbsp; Approve monorepo only if the business proves a recurring cross-repo change pattern that justifies the platform tax.</p>
+    <a class="src" href="https://research.google/pubs/why-google-stores-billions-of-lines-of-code-in-a-single-repository/" target="_blank" rel="noopener">Google Research · monorepo systems</a>
+    <a class="src" href="https://sourcegraph.com/blog/monorepo-build-tools" target="_blank" rel="noopener">Sourcegraph · monorepo build tools</a>
+  </div>
+</section>
+
+<section id="s-capability" data-thread="rail" data-nav="Capability">
+  <div class="pin-track" id="track-capability"><div class="pin-stage"><div class="cap-stage">
+    <div>
+      <p class="eyebrow">07 / The real decision</p>
+      <h2>This is not vendor vs internal.<br>It is capability vs dependency.</h2>
+      <p class="lede">A vendor can support integration. A vendor should not own Takeda’s DevX brain. If we need a 100-person external team to orchestrate GitHub, Atlassian, AI agents, compliance artifacts, and SDLC workflows, then we are not buying capacity. We are outsourcing the operating model.</p>
+    </div>
+    <div class="future-stack" id="future-stack">
+      <article class="future show"><div class="tag">Future 01</div><h3>Outsource everything</h3><p>Fast start. Weak internal learning. Vendor owns the orchestration logic. Takeda still owns the compliance risk.</p><span class="risk">Dependency risk</span><div class="future-nodes"><i></i><i></i><i></i><i></i></div></article>
+      <article class="future"><div class="tag">Future 02</div><h3>Let every team build</h3><p>High enthusiasm. High duplication. Inconsistent controls. No enterprise reuse. Innovation turns into parallel spend.</p><span class="risk">Fragmentation risk</span><div class="future-nodes"><i></i><i></i><i></i><i></i></div></article>
+      <article class="future good"><div class="tag">Future 03</div><h3>Own the DevX operating model</h3><p>Small internal core team. Adopt enterprise tools. Build only the Takeda-specific GxP/control layer. Improve one evergreen capability.</p><span class="risk">Recommended</span><div class="future-nodes"><i></i><i></i><i></i><i></i></div></article>
+    </div>
+  </div></div></div>
+</section>
+
+<section id="s-model" class="rail-pad" data-thread="center" data-nav="Model">
+  <div class="wrap">
+    <p class="eyebrow rv">08 / The operating model</p>
+    <h2 class="rv" data-d="1">Every DevX agent must land in one of four buckets.</h2>
+    <p class="lede rv" data-d="2">This is how Takeda prevents duplicate internal builds, narrows vendor scope, and keeps the internal platform evergreen instead of restarting from scratch.</p>
+    <div class="matrix rv" data-d="3">
+      <article class="card model-card adopt"><div class="m-tag">Adopt</div><h3>Use the commodity platform as-is.</h3><ul><li>GitHub Copilot for coding assistance</li><li>GitHub coding agent for issue-to-PR workflows</li><li>Atlassian Rovo for Jira / Confluence intelligence</li><li>Enterprise-approved LLM APIs</li></ul><p class="why"><b>Why:</b> the giants are already building the generic brain.</p></article>
+      <article class="card model-card configure"><div class="m-tag">Configure</div><h3>Apply Takeda workflows to tools we already own.</h3><ul><li>Jira and Confluence templates</li><li>GitHub branch / PR policies</li><li>Copilot instructions and approved prompts</li><li>Access controls, logging, routing</li></ul><p class="why"><b>Why:</b> most value comes from workflow design, not rebuilding platforms.</p></article>
+      <article class="card model-card build"><div class="m-tag">Build</div><h3>Build only Takeda-specific capability.</h3><ul><li>GxP validation artifact generation</li><li>Requirement → code → test → release traceability</li><li>Audit evidence packs and regulated guardrails</li><li>Human approval and exception workflows</li></ul><p class="why"><b>Why:</b> this is the pharma-specific layer no generic platform can fully own.</p></article>
+      <article class="card model-card stop"><div class="m-tag">Stop</div><h3>Stop duplicate and low-evidence work.</h3><ul><li>Custom code-generation platform</li><li>One portal for all agents</li><li>Monorepo migration without proven recurring need</li><li>Vendor SOWs before baseline metrics</li></ul><p class="why"><b>Why:</b> stopping is how we protect focus.</p></article>
+      <div class="idea-card">New DevX<br>agent idea</div>
+    </div>
+  </div>
+</section>
+
+<section id="s-gates" class="rail-pad" data-thread="center" data-nav="Gates">
+  <div class="wrap">
+    <p class="eyebrow rv">09 / The pathway</p>
+    <h2 class="rv" data-d="1">Not a timeline.<br>A gated decision system.</h2>
+    <p class="lede rv" data-d="2">We should not approve or reject work based on who presents first or who has the largest team. Every DevX agent, vendor scope, and internal build should pass the same evidence gates.</p>
+    <div class="gates rv" data-d="3">
+      <div class="gate-row"><div class="gate-num">G0</div><article class="card gate-card"><header><h3>Freeze duplicate spend</h3><span class="exit">Exit: inventory</span></header><p>Pause new custom DevX builds, vendor expansion, and monorepo work until the baseline exists. Capture active initiatives, teams, tools, spend, vendors, and overlapping use cases.</p></article></div>
+      <div class="gate-row"><div class="gate-num">G1</div><article class="card gate-card"><header><h3>Measure current reality</h3><span class="exit">Exit: baseline</span></header><p>Pull GitHub Copilot metrics, Atlassian/Rovo usage, PR cycle time, review time, adoption, and active users. Start with native telemetry before funding new build.</p></article></div>
+      <div class="gate-row"><div class="gate-num">G2</div><article class="card gate-card"><header><h3>Classify every use case</h3><span class="exit">Exit: registry</span></header><p>Each agent or initiative is classified as Adopt, Configure, Build, or Stop. Registry fields: owner, users, tooling, GxP status, duplication score, and evidence of value.</p></article></div>
+      <div class="gate-row"><div class="gate-num">G3</div><article class="card gate-card"><header><h3>Prove real users</h3><span class="exit">Exit: signal rating</span></header><p>Separate genuine adoption from demo excitement.</p><div class="signals"><div class="signal green"><b>Green signal</b><span>Repeated active users, production workflow usage, merged PRs, accepted artifacts, measurable time saved.</span></div><div class="signal amber"><b>Amber signal</b><span>Promising use case, but limited repeat usage or incomplete evidence.</span></div><div class="signal red"><b>Red-rated signal</b><span>Demo-only use, duplicate idea, unclear owner, no measurable output, or compliance risk.</span></div></div></article></div>
+      <div class="gate-row"><div class="gate-num">G4</div><article class="card gate-card"><header><h3>Build only the Takeda layer</h3><span class="exit">Exit: thin slice</span></header><p>Select one or two high-value GxP / regulated workflow slices. Prove traceability, audit pack, validation evidence, policy routing, and human approval controls.</p></article></div>
+      <div class="gate-row"><div class="gate-num">G5</div><article class="card gate-card"><header><h3>Decide: scale, refine, stop, or narrow vendor role</h3><span class="exit">Exit: decision paper</span></header><p>No broad rollout without evidence. Show measured adoption, quality, cost, compliance burden, reusable pattern, and whether any vendor scope remains justified.</p></article></div>
+    </div>
+  </div>
+</section>
+
+<section id="s-close" data-thread="center" data-nav="Decision">
+  <div class="close-inner">
+    <svg class="crest rv" viewBox="0 0 88 60" aria-hidden="true"><path d="M6 52 L28 15 L39 34 L50 8 L62 31 L73 16 L83 52"/><path d="M18 52 L31 31 L41 47"/></svg>
+    <div class="close-lines">
+      <span class="teal rv" data-d="1">Adopt what the giants build.</span>
+      <span class="white rv" data-d="2">Configure what Takeda already owns.</span>
+      <span class="red rv" data-d="3">Build only the regulated layer.</span>
+      <span class="rv" data-d="4">Stop what duplicates or cannot prove real use.</span>
+    </div>
+    <div class="close-decision rv" data-d="4">Approve: Internal DevX Control Plane + GxP Layer</div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-grid">
+    <div><h4>Primary sources</h4><ul>
+      <li><a href="https://mlq.ai/media/quarterly_decks/v0.1_State_of_AI_in_Business_2025_Report.pdf" target="_blank" rel="noopener">MIT NANDA — The GenAI Divide: State of AI in Business 2025</a></li>
+      <li><a href="https://www.gartner.com/en/newsroom/press-releases/2025-06-25-gartner-predicts-over-40-percent-of-agentic-ai-projects-will-be-canceled-by-end-of-2027" target="_blank" rel="noopener">Gartner — over 40% of agentic AI projects projected to be canceled by end of 2027</a></li>
+      <li><a href="https://blog.google/innovation-and-ai/technology/developers-tools/dora-report-2025/" target="_blank" rel="noopener">Google / DORA 2025 — AI adoption and software development workflows</a></li>
+      <li><a href="https://github.blog/changelog/2026-02-27-copilot-metrics-is-now-generally-available/" target="_blank" rel="noopener">GitHub — Copilot metrics generally available</a></li>
+      <li><a href="https://github.blog/ai-and-ml/github-copilot/assigning-and-completing-issues-with-coding-agent-in-github-copilot/" target="_blank" rel="noopener">GitHub — assigning and completing issues with coding agent</a></li>
+      <li><a href="https://www.atlassian.com/blog/announcements/atlassian-rovo-mcp-ga" target="_blank" rel="noopener">Atlassian — Rovo MCP Server generally available</a></li>
+    </ul></div>
+    <div><h4>Architecture references</h4><ul>
+      <li><a href="https://research.google/pubs/why-google-stores-billions-of-lines-of-code-in-a-single-repository/" target="_blank" rel="noopener">Google Research — why Google stores billions of lines of code in a single repository</a></li>
+      <li><a href="https://sourcegraph.com/blog/monorepo-build-tools" target="_blank" rel="noopener">Sourcegraph — monorepo build tools and migration tax</a></li>
+      <li><a href="https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent/start-copilot-sessions" target="_blank" rel="noopener">GitHub Docs — starting Copilot cloud agent sessions</a></li>
+      <li><a href="#s-model">Internal decision model — Adopt / Configure / Build / Stop</a></li>
+      <li><a href="#s-gates">Internal pathway — event-gated DevX governance</a></li>
+    </ul></div>
+  </div>
+  <div class="fine"><span>Takeda DevX Control Tower · Single-file GitHub Pages build</span><span>Adopt · Configure · Build · Stop</span></div>
+  <div style="max-width:var(--maxw);margin:34px auto 0;text-align:center">
+    <a href="index.html" style="display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:999px;padding:12px 20px;font:800 11px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);background:rgba(255,255,255,.03)">Version 1</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+'use strict';
+document.documentElement.classList.add('js');
+const $=(s,e=document)=>e.querySelector(s);const $$=(s,e=document)=>Array.from(e.querySelectorAll(s));const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));const lerp=(a,b,t)=>a+(b-a)*t;const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* reveal */
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.16});$$('.rv').forEach(el=>reduced?el.classList.add('in'):io.observe(el));
+
+/* nav */
+const nav=$('.progress-rail');const sections=$$('[data-nav]');sections.forEach(s=>{const a=document.createElement('a');a.href='#'+s.id;a.innerHTML='<span>'+s.dataset.nav+'</span>';nav.appendChild(a)});const navLinks=$$('.progress-rail a');
+
+/* thread */
+const svg=$('#decision-thread'),ghost=$('#thread-ghost'),live=$('#thread-live'),tip=$('#thread-tip'),pct=$('#pct');let pathLen=0,docH=0,drawn=0;
+function railX(){return innerWidth<820?24:Math.min(86,Math.max(54,innerWidth*.055))}
+function buildThread(){docH=document.documentElement.scrollHeight;svg.setAttribute('width',innerWidth);svg.setAttribute('height',docH);svg.setAttribute('viewBox',`0 0 ${innerWidth} ${docH}`);document.documentElement.style.setProperty('--rail',railX()+'px');const pts=[{x:innerWidth/2,y:0}];sections.forEach(sec=>{const mode=sec.dataset.thread;const x=mode==='rail'?railX():innerWidth/2;const y=sec.offsetTop;const h=sec.offsetHeight;pts.push({x,y:y+h*.16});pts.push({x,y:y+h*.84})});pts.push({x:innerWidth/2,y:docH-40});let d=`M ${pts[0].x} ${pts[0].y}`;for(let i=1;i<pts.length;i++){const a=pts[i-1],b=pts[i];if(Math.abs(a.x-b.x)<1)d+=` L ${b.x} ${b.y}`;else{const my=(a.y+b.y)/2;d+=` C ${a.x} ${my} ${b.x} ${my} ${b.x} ${b.y}`}}ghost.setAttribute('d',d);live.setAttribute('d',d);pathLen=live.getTotalLength();live.style.strokeDasharray=pathLen;live.style.strokeDashoffset=pathLen}
+
+/* pinned scenes */
+const pins=[];function pin(el,fn){if(el)pins.push({el,fn})}function updatePins(){pins.forEach(p=>{const r=p.el.getBoundingClientRect();const total=p.el.offsetHeight-innerHeight;const prog=total>0?clamp(-r.top/total,0,1):1;p.fn(reduced?1:prog)})}
+
+/* duplication canvas */
+const canvas=$('#dup-canvas'),ctx=canvas.getContext('2d');let cards=[];const names=['GitHub agent','Sprint agent','BA workflow','GxP artifacts','PR review','Vendor SOW','Portal idea','Monorepo','Traceability','QA evidence','Rovo flow','Copilot metrics'];function resetCanvas(){const rect=canvas.getBoundingClientRect();const dpr=Math.min(devicePixelRatio||1,2);canvas.width=rect.width*dpr;canvas.height=rect.height*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);cards=names.map((n,i)=>({name:n,x:Math.random()*rect.width*.78+20,y:Math.random()*rect.height*.78+28,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,type:i%4}))}
+function drawCanvas(){const w=canvas.clientWidth,h=canvas.clientHeight;ctx.clearRect(0,0,w,h);ctx.save();ctx.globalAlpha=.9;ctx.strokeStyle='rgba(246,244,241,.07)';for(let i=0;i<cards.length;i++){for(let j=i+1;j<cards.length;j++){const a=cards[i],b=cards[j],dx=a.x-b.x,dy=a.y-b.y,d=Math.hypot(dx,dy);if(d<160){ctx.globalAlpha=(1-d/160)*.18;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()}}}ctx.restore();cards.forEach((c,i)=>{c.x+=c.vx;c.y+=c.vy;if(c.x<70||c.x>w-70)c.vx*=-1;if(c.y<35||c.y>h-35)c.vy*=-1;const dup=i===5||i===6||i===7;ctx.fillStyle=dup?'rgba(225,36,42,.12)':'rgba(255,255,255,.045)';ctx.strokeStyle=dup?'rgba(225,36,42,.45)':'rgba(246,244,241,.12)';ctx.lineWidth=1;roundRect(ctx,c.x-58,c.y-18,116,36,10);ctx.fill();ctx.stroke();ctx.fillStyle=dup?'#E1242A':'#a09fa7';ctx.font='700 10px JetBrains Mono,monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(c.name,c.x,c.y)});ctx.fillStyle='rgba(225,36,42,.92)';ctx.shadowColor='rgba(225,36,42,.6)';ctx.shadowBlur=18;ctx.beginPath();ctx.arc(w/2,h/2,7,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;ctx.fillStyle='#f6f4f1';ctx.font='800 11px JetBrains Mono,monospace';ctx.textAlign='center';ctx.fillText('NO OWNER · NO REUSE GATE',w/2,h/2+32)}
+function roundRect(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
+
+/* evidence */
+const grid=$('#pilot-grid');const winners=new Set([6,23,39,66,88]);for(let i=0;i<100;i++){grid.appendChild(document.createElement('i'))}const dots=$$('#pilot-grid i');pin($('#track-evidence'),p=>{const lit=Math.floor(clamp(p/.28,0,1)*100);const failT=clamp((p-.3)/.28,0,1);dots.forEach((d,i)=>{d.classList.toggle('on',i<lit);d.classList.toggle('fail',i<lit&&!winners.has(i)&&failT>.05);d.classList.toggle('win',i<lit&&winners.has(i)&&failT>.2)});[$('#ev-a'),$('#ev-b'),$('#ev-c')].forEach((el,i)=>el.classList.toggle('show',(i===0&&p<.34)||(i===1&&p>=.34&&p<.68)||(i===2&&p>=.68)))});
+
+/* platform */
+const releaseIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){$('#release-board').classList.add('live');$('#vendor-clock').classList.add('live');countMonth()}}),{threshold:.35});releaseIO.observe($('#s-platform'));let monthDone=false;function countMonth(){if(monthDone||reduced){$('#month-count').textContent='18';return}monthDone=true;let start=performance.now();function step(t){let p=clamp((t-start)/1200,0,1);$('#month-count').textContent=Math.round(18*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step)}requestAnimationFrame(step)}
+
+/* portal */
+pin($('#track-portal'),p=>{$('#portal-viz').classList.toggle('mode-control',p>.48)});
+
+/* capability */
+pin($('#track-capability'),p=>{const idx=p<.34?0:p<.67?1:2;$$('.future',$('#future-stack')).forEach((f,i)=>f.classList.toggle('show',i===idx))});
+
+/* active nav */
+function activeNav(){let current=0;sections.forEach((s,i)=>{const r=s.getBoundingClientRect();if(r.top<innerHeight*.42)current=i});navLinks.forEach((a,i)=>a.classList.toggle('active',i===current))}
+function frame(){if(pathLen){const max=document.documentElement.scrollHeight-innerHeight;const p=max>0?clamp(scrollY/max,0,1):0;pct.textContent=String(Math.round(p*100)).padStart(3,'0');const target=clamp((scrollY+innerHeight*.72)/document.documentElement.scrollHeight,0,1)*pathLen;drawn=lerp(drawn,target,.12);live.style.strokeDashoffset=pathLen-drawn;const point=live.getPointAtLength(clamp(drawn,0,pathLen));tip.setAttribute('transform',`translate(${point.x},${point.y})`)}updatePins();activeNav();drawCanvas();requestAnimationFrame(frame)}
+
+window.addEventListener('resize',()=>{resetCanvas();buildThread()},{passive:true});window.addEventListener('load',()=>{resetCanvas();buildThread();frame()});
+})();
+</script>
+</body>
+</html>
